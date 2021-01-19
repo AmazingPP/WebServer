@@ -3,13 +3,13 @@
 //
 
 #include "../include/framework.h"
-#include "../include/utils.h"
 
 int main(int argc, char** argv) {
     std::string base_path = ".";
-    int thread_num = 4, port = 8080;
+    int thread_num = 4, opt;
+    short port = 8000;
 
-    while (int opt = getopt(argc, argv, "t:p:r") != -1) {
+    while ((opt = getopt(argc, argv, "t:p:r")) != -1) {
         switch (opt) {
             case 't':
                 thread_num = atoi(optarg);
@@ -19,8 +19,8 @@ int main(int argc, char** argv) {
                 break;
             case 'r':
             {
-                if (!utils::check_path_vail(optarg)) {
-                    printf("Warning: \"%s\" 不存在或不可访问! \n", optarg);
+                if (!utils::check_path_vaild(optarg)) {
+                    LOG_ERROR("\"%s\" 不存在或不可访问!", optarg);
                     std::exit(EXIT_FAILURE);
                 }
                 if (char& end = optarg[std::strlen(optarg) - 1]; end == '/') {
@@ -34,12 +34,12 @@ int main(int argc, char** argv) {
         }
     }
 
-    printf("\"******* WebServer Config Info *******\\n");
-    printf("Port:\t%d\n",port);
-    printf("Thread number:\t%d\n", thread_num);
-    printf("Base path:\t%s\n",base_path.c_str());
+    logger::info("\"******* WebServer 配置信息 *******\n");
+    logger::info("端口号:\t%d\n", port);
+    logger::info("线程数:\t%d\n", thread_num);
+    logger::info("根目录:\t%s\n", base_path.c_str());
 
-    utils::handle_for_sigpipe();
+    signal(SIGPIPE, SIG_IGN);
 
     return 0;
 }

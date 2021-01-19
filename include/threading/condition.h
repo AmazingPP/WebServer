@@ -7,8 +7,6 @@
 #ifndef WEBSERVER_CONDITION_H
 #define WEBSERVER_CONDITION_H
 
-#include "../framework.h"
-
 #include "mutex_lock.h"
 #include "../noncopyable.h"
 

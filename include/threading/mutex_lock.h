@@ -7,8 +7,6 @@
 #ifndef WEBSERVER_MUTEX_LOCK_H
 #define WEBSERVER_MUTEX_LOCK_H
 
-#include "../framework.h"
-
 #include "../noncopyable.h"
 
 class mutex_t : public noncopyable {
@@ -44,7 +42,7 @@ private:
 class lock_guard : public noncopyable {
 public:
     explicit lock_guard(mutex_t &mutex) : m_mutex(mutex) {
-        mutex.lock()
+        mutex.lock();
     }
 
     ~lock_guard() {

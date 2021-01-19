@@ -6,11 +6,33 @@
 
 #include "../include/utils.h"
 
-#include <signal.h>
+#include <csignal>
 #include <sys/stat.h>
 
 namespace utils {
-    bool check_path_vail(const char* base_path){
+    std::string &ltrim(std::string &str) {
+        if (size_t pos = str.find_first_not_of(' '); pos != std::string::npos) {
+            str.erase(0,pos);
+        }
+
+        return str;
+    }
+
+    std::string &rtrim(std::string &str) {
+        if (size_t pos = str.find_last_not_of(' '); pos != std::string::npos) {
+            str.erase(pos + 1);
+        }
+
+        return str;
+    }
+
+    std::string &trim(std::string &str) {
+        ltrim(str);
+        rtrim(str);
+        return str;
+    }
+
+    bool check_path_vaild(const char* base_path){
         struct stat file;
 
         if (stat(base_path, &file) == -1) {
@@ -25,7 +47,6 @@ namespace utils {
 
     void handle_for_sigpipe() {
         struct sigaction sa;
-        memset(&sa, '\0', sizeof(sa));
         sa.sa_handler = SIG_IGN;
         sa.sa_flags = 0;
         if (sigaction(SIGPIPE, &sa, nullptr))
