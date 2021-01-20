@@ -11,14 +11,14 @@
 
 namespace logger {
     template<typename... Arg>
-    void info(const char* format, Arg&&... args) {
+    void Info(const char* format, Arg&&... args) {
         std::printf(format, std::forward<Arg>(args)...);
     }
 
     template<typename... Arg>
-    void error(const char* format, Arg&&... args) {
+    void Error(const char* format, Arg&&... args) {
         std::printf(format, std::forward<Arg>(args)...);
     }
 }
 
-#define LOG_ERROR(...) logger::error((utils::format(__VA_ARGS__) + utils::format("[%s] [%s : %d]", strerror(errno), __FILE__, __LINE__)).c_str());
+#define LOG_ERROR(...) logger::Error((utils::Format(__VA_ARGS__) + utils::Format("[%s] [%s : %d]", strerror(errno), __FILE__, __LINE__)).c_str());

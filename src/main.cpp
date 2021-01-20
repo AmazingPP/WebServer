@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
                 break;
             case 'r':
             {
-                if (!utils::check_path_vaild(optarg)) {
+                if (!utils::IsPathVaild(optarg)) {
                     LOG_ERROR("\"%s\" 不存在或不可访问!", optarg);
                     std::exit(EXIT_FAILURE);
                 }
@@ -34,10 +34,10 @@ int main(int argc, char** argv) {
         }
     }
 
-    logger::info("\"******* WebServer 配置信息 *******\n");
-    logger::info("端口号:\t%d\n", port);
-    logger::info("线程数:\t%d\n", thread_num);
-    logger::info("根目录:\t%s\n", base_path.c_str());
+    logger::Info("\"******* WebServer 配置信息 *******\n");
+    logger::Info("端口号:\t%d\n", port);
+    logger::Info("线程数:\t%d\n", thread_num);
+    logger::Info("根目录:\t%s\n", base_path.c_str());
 
     signal(SIGPIPE, SIG_IGN);
 

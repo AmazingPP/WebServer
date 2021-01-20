@@ -10,28 +10,30 @@
 #include "../framework.h"
 #include "client_socket.h"
 
-class server_socket {
-public:
-    server_socket(short port, const char *ip = nullptr);
+namespace sockets {
+    void SetReusePort(int fd);
+    void SetNonblocking(int fd);
 
-    ~server_socket();
+    class ServerSocket {
+    public:
+        ServerSocket(short port, const char *ip = nullptr);
 
-    void bind();
+        ~ServerSocket();
 
-    void listen();
+        void Bind();
 
-    int accept(client_socket &client) const;
+        void Listen();
 
-    void close();
+        int Accept(ClientSocket &client) const;
 
-    int listen_fd, epoll_fd;
-private:
-    short m_port;
-    sockaddr_in m_addr;
-    const char* m_ip;
-    void set_reuse_port(int fd);
-    void set_nonblocking(int fd);
-};
+        void Close();
 
+        int listen_fd, epoll_fd;
+    private:
+        short port_;
+        sockaddr_in addr_;
+        const char *ip_;
+    };
+}
 
 #endif //WEBSERVER_SERVER_SOCKET_H

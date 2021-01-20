@@ -9,21 +9,19 @@
 
 #include "../framework.h"
 
-class client_socket {
-public:
-    client_socket();
+namespace sockets {
+    class ClientSocket {
+    public:
+        ClientSocket();
 
-    client_socket(int fd);
+        ~ClientSocket();
 
-    ~client_socket();
+        void Close();
 
-    void close();
-
-    int fd;
-
-private:
-    socklen_t m_len;
-    sockaddr_in m_addr;
-};
+        int fd;
+        sockaddr_in addr;
+        socklen_t addr_len;
+    };
+}
 
 #endif //WEBSERVER_CLIENT_SOCKET_H

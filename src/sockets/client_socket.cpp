@@ -2,19 +2,18 @@
 // Created by AmazingPP on 2021/1/19.
 //
 
-#pragma once
-
 #include "../../include/sockets/client_socket.h"
+namespace sockets {
+    ClientSocket::ClientSocket() : fd(-1), addr_len(sizeof(addr)) {}
 
-client_socket::client_socket() : fd(-1) {}
+    ClientSocket::~ClientSocket() {
+        Close();
+    }
 
-client_socket::~client_socket() {
-    close();
-}
-
-void client_socket::close() {
-    if (fd > -1) {
-        ::close(fd);
-        fd = -1;
+    void ClientSocket::Close() {
+        if (fd > -1) {
+            close(fd);
+            fd = -1;
+        }
     }
 }

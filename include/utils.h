@@ -11,17 +11,17 @@
 
 namespace utils {
     template<typename... Arg>
-    std::string format(const char* format, Arg&&... args) {
+    std::string Format(const char* format, Arg&&... args) {
         char buffer[1024]{};
         snprintf(buffer, sizeof(buffer) - 1, format, std::forward<Arg>(args)...);
         return std::string(buffer);
     }
 
-    std::string& ltrim(std::string &str);
-    std::string& rtrim(std::string &str);
-    std::string& trim(std::string &str);
-    bool check_path_vaild(const char* base_path);
-    void handle_for_sigpipe();
+    std::string& TrimLeft(std::string &str);
+    std::string& TrimRight(std::string &str);
+    std::string& Trim(std::string &str);
+    bool IsPathVaild(const char* base_path);
+    void HandleForSigpipe();
 }
 
 

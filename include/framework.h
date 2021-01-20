@@ -13,6 +13,7 @@
 #include <string_view>
 #include <memory>
 #include <csignal>
+#include <unordered_map>
 
 #include <pthread.h>
 #include <unistd.h>
