@@ -50,4 +50,15 @@ namespace utils {
         if (sigaction(SIGPIPE, &sa, nullptr))
             return;
     }
+
+    std::pair<std::string, std::string> ParseToKeyValue(const char *buffer) {
+        std::string str(buffer);
+
+        if (size_t pos = str.find(':'); pos != std::string::npos) {
+            return { str.substr(0, pos), str.substr(pos + 1) };
+        }
+        else {
+            return { "","" };
+        }
+    }
 }

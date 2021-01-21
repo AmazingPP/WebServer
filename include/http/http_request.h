@@ -13,13 +13,13 @@ namespace http {
     struct HttpRequest {
 
         enum HttpVersions {
-            kHttp10 = 0,
+            kHttp10,
             kHttp11,
             kVersionNotSupport
         };
 
         enum HttpMethods {
-            kGet = 0,
+            kGet,
             kPost,
             kPut,
             kDelete,
@@ -27,7 +27,7 @@ namespace http {
         };
 
         enum HttpHeaders {
-            kHost = 0,
+            kHost,
             kUserAgent,
             kConnection,
             kAccept,
@@ -46,13 +46,15 @@ namespace http {
 
         HttpRequest(std::string url = std::string(""),
                     HttpMethods method = HttpMethods::kMethodNotSupport,
-                    HttpVersions version = HttpVersions::kVersionNotSupport) : method(method), version(version), url(url) {}
+                    HttpVersions version = HttpVersions::kVersionNotSupport) :
+                    method(method), version(version), url(url), content(nullptr) {}
 
         friend std::ostream &operator<<(std::ostream &os, const HttpRequest &request);
 
         HttpMethods method;
         HttpVersions version;
         std::string url;
+        char* content;
         std::unordered_map<HttpHeaders, std::string, EnumClassHash> headers;
     };
 

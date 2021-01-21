@@ -3,6 +3,7 @@
 //
 
 #include "../include/framework.h"
+#include "../include/http/http_request_parser.h"
 
 int main(int argc, char** argv) {
     std::string base_path = ".";
@@ -34,7 +35,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    logger::Info("\"******* WebServer 配置信息 *******\n");
+    logger::Info("******* WebServer 配置信息 *******\n");
     logger::Info("端口号:\t%d\n", port);
     logger::Info("线程数:\t%d\n", thread_num);
     logger::Info("根目录:\t%s\n", base_path.c_str());

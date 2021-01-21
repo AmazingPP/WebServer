@@ -14,6 +14,7 @@
 #include <memory>
 #include <csignal>
 #include <unordered_map>
+#include <algorithm>
 
 #include <pthread.h>
 #include <unistd.h>

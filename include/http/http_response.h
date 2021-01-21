@@ -26,25 +26,25 @@ namespace http {
 
         ~HttpResponse();
 
-        void AppendBuffer(char* const buffer);
+        void AppendBuffer(char* buffer) const;
 
         void AddHeader(const std::string &key, const std::string &value);
 
-        HttpStatusCode getStatusCode() const;
+        HttpStatusCode status_code() const;
 
-        void setStatusCode(HttpStatusCode statusCode);
+        void set_status_code(HttpStatusCode status_code);
 
-        const std::string &getStatusMsg() const;
+        const std::string &status_msg() const;
 
-        void setStatusMsg(const std::string &statusMsg);
+        void set_status_msg(const std::string &status_msg);
 
-        HttpRequest::HttpVersions getVersion() const;
+        HttpRequest::HttpVersions version() const;
 
-        void setVersion(HttpRequest::HttpVersions version);
+        void set_version(HttpRequest::HttpVersions version);
 
-        bool isKeepAlive() const;
+        bool keep_alive() const;
 
-        void set_keep_alive(bool keepAlive);
+        void set_keep_alive(bool keep_alive);
 
         const MimeType &mime() const;
 
@@ -56,11 +56,11 @@ namespace http {
 
         int content_length() const;
 
-        void set_content_length(int contentLength);
+        void set_content_length(int content_length);
 
         const std::string &file_path() const;
 
-        void set_file_path(const std::string &filePath);
+        void set_file_path(const std::string &file_path);
 
     private:
         HttpStatusCode status_code_;

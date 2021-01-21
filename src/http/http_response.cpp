@@ -17,7 +17,7 @@ namespace http {
             delete[] body_;
     }
 
-    void HttpResponse::AppendBuffer(char* const buffer) {
+    void HttpResponse::AppendBuffer(char* const buffer) const {
         if (version_ == HttpRequest::HttpVersions::kHttp10) {
             sprintf(buffer, "HTTP/1.1 %d %s\r\n", status_code_, status_msg_.c_str());
         } else {
@@ -40,31 +40,31 @@ namespace http {
         headers_[key] = value;
     }
 
-    HttpResponse::HttpStatusCode HttpResponse::getStatusCode() const {
+    HttpResponse::HttpStatusCode HttpResponse::status_code() const {
         return status_code_;
     }
 
-    void HttpResponse::setStatusCode(HttpResponse::HttpStatusCode statusCode) {
+    void HttpResponse::set_status_code(HttpResponse::HttpStatusCode statusCode) {
         status_code_ = statusCode;
     }
 
-    const std::string &HttpResponse::getStatusMsg() const {
+    const std::string &HttpResponse::status_msg() const {
         return status_msg_;
     }
 
-    void HttpResponse::setStatusMsg(const std::string &statusMsg) {
+    void HttpResponse::set_status_msg(const std::string &statusMsg) {
         status_msg_ = statusMsg;
     }
 
-    HttpRequest::HttpVersions HttpResponse::getVersion() const {
+    HttpRequest::HttpVersions HttpResponse::version() const {
         return version_;
     }
 
-    void HttpResponse::setVersion(HttpRequest::HttpVersions version) {
+    void HttpResponse::set_version(HttpRequest::HttpVersions version) {
         version_ = version;
     }
 
-    bool HttpResponse::isKeepAlive() const {
+    bool HttpResponse::keep_alive() const {
         return keep_alive_;
     }
 
