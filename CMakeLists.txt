@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
         src/main.cpp
         src/utils.cpp
+        src/timer.cpp
+        src/epoll.cpp
         src/sockets/client_socket.cpp
         src/sockets/server_socket.cpp
         src/http/http_request.cpp
