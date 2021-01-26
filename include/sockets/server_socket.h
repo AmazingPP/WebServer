@@ -31,7 +31,7 @@ namespace sockets {
         int listen_fd, epoll_fd;
     private:
         short port_;
-        sockaddr_in addr_;
+        sockaddr_in addr_{};
         const char *ip_;
     };
 }

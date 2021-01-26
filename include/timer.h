@@ -10,7 +10,7 @@
 #include "framework.h"
 
 #include "http/http_data.h"
-#include "threading/mutex_lock.h"
+#include "threading/mutex.h"
 
 namespace http {
     class HttpData;
@@ -63,7 +63,7 @@ namespace timers {
 
     private:
         std::priority_queue<SharedTimer, std::deque<SharedTimer>, TimerComparer> timer_queue_;
-        mutex_t mutex_;
+        Mutex mutex_;
     };
 }
 

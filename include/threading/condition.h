@@ -7,36 +7,37 @@
 #ifndef WEBSERVER_CONDITION_H
 #define WEBSERVER_CONDITION_H
 
-#include "mutex_lock.h"
+#include "mutex.h"
 #include "../noncopyable.h"
 
 namespace threading {
-    class condition : public noncopyable {
+    
+    class Condition : public noncopyable {
     public:
-        condition() {
+        Condition() {
             pthread_cond_init(&m_cond, nullptr);
         }
 
-        ~condition() {
+        ~Condition() {
             pthread_cond_destroy(&m_cond);
         }
 
-        void wait(mutex_t &mutex) {
+        void Wait(Mutex &mutex) {
             pthread_cond_wait(&m_cond, mutex.native_handle());
         }
 
         template<typename Predicate>
-        void wait(mutex_t &mutex, Predicate pred) {
+        void Wait(Mutex &mutex, Predicate pred) {
             while (!pred()) {
-                wait(mutex);
+                Wait(mutex);
             }
         }
 
-        void notify_one() {
+        void NotifyOne() {
             pthread_cond_signal(&m_cond);
         }
 
-        void notify_all() {
+        void NotifyAll() {
             pthread_cond_broadcast(&m_cond);
         }
     private:

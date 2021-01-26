@@ -56,7 +56,7 @@ namespace timers {
         auto timer = std::make_shared<Timer>(http_data, timeout);
 
         {
-            lock_guard lock(mutex_);
+            LockGuard lock(mutex_);
             timer_queue_.push(timer);
             // 将Timer和HttpData关联起来
             http_data->set_timer(timer);
@@ -64,7 +64,7 @@ namespace timers {
     }
 
     void TimerManager::HandleExpiredEvent() {
-        lock_guard lock(mutex_);
+        LockGuard lock(mutex_);
 
         Timer::current_time();
         while (!timer_queue_.empty()) {
