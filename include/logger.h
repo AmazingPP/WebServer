@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/19.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_LOGGER_H
 #define WEBSERVER_LOGGER_H
 

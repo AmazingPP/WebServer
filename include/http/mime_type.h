@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/20.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_MIME_TYPE_H
 #define WEBSERVER_MIME_TYPE_H
 

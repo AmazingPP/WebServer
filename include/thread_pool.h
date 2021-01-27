@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/26.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_THREAD_POOL_H
 #define WEBSERVER_THREAD_POOL_H
 

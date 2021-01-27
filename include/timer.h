@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/22.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_TIMER_H
 #define WEBSERVER_TIMER_H
 

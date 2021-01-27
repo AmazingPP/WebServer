@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/25.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_THREAD_H
 #define WEBSERVER_THREAD_H
 
@@ -33,6 +31,17 @@ namespace threading {
         }
 
         Thread(Thread &&other) noexcept {
+            Swap(other);
+        }
+
+        Thread& operator=(Thread &&other) noexcept {
+            if (joinable_)
+                std::terminate();
+            Swap(other);
+            return *this;
+        }
+
+        void Swap(Thread &other) noexcept {
             std::swap(joinable_, other.joinable_);
             std::swap(pthread_, other.pthread_);
         }

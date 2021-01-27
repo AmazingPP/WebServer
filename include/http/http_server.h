@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/25.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_HTTP_SERVER_H
 #define WEBSERVER_HTTP_SERVER_H
 

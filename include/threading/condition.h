@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/19.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_CONDITION_H
 #define WEBSERVER_CONDITION_H
 
@@ -15,15 +13,15 @@ namespace threading {
     class Condition : public noncopyable {
     public:
         Condition() {
-            pthread_cond_init(&m_cond, nullptr);
+            pthread_cond_init(&pthread_cond_, nullptr);
         }
 
         ~Condition() {
-            pthread_cond_destroy(&m_cond);
+            pthread_cond_destroy(&pthread_cond_);
         }
 
         void Wait(Mutex &mutex) {
-            pthread_cond_wait(&m_cond, mutex.native_handle());
+            pthread_cond_wait(&pthread_cond_, mutex.native_handle());
         }
 
         template<typename Predicate>
@@ -34,14 +32,14 @@ namespace threading {
         }
 
         void NotifyOne() {
-            pthread_cond_signal(&m_cond);
+            pthread_cond_signal(&pthread_cond_);
         }
 
         void NotifyAll() {
-            pthread_cond_broadcast(&m_cond);
+            pthread_cond_broadcast(&pthread_cond_);
         }
     private:
-        pthread_cond_t m_cond;
+        pthread_cond_t pthread_cond_;
     };
 }
 

@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/22.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_EPOLL_H
 #define WEBSERVER_EPOLL_H
 
@@ -16,9 +14,10 @@ using namespace sockets;
 
 class Epoll {
 public:
-    constexpr static int kMaxEvents =  10000;
+    using HttpDataPtrs = std::vector<std::shared_ptr<HttpData>>;
 
-    // 可读 | ET模 | 保证一个socket连接在任一时刻只被一个线程处理
+    constexpr static int kMaxEvents =  10000;
+    // 可读 | ET模式 | 保证一个socket连接在任一时刻只被一个线程处理
     constexpr static uint32_t kDefaultEvents = EPOLLIN | EPOLLET | EPOLLONESHOT;
 
     static int Init(int max_events);
@@ -29,12 +28,12 @@ public:
 
     static int DelFd(int epoll_fd, int fd, uint32_t events);
 
-    static std::vector<std::shared_ptr<HttpData>> Poll(const ServerSocket &server_socket, int max_event, int timeout);
+    static HttpDataPtrs Poll(const ServerSocket &server_socket, int max_event, int timeout);
 
     static void HandleConnection(const ServerSocket &server_socket);
 
     static std::unordered_map<int, std::shared_ptr<HttpData>> http_data_map;
-    static epoll_event *events;
+    static std::unique_ptr<epoll_event[]> epoll_event_array;
     static TimerManager timer_manager;
 };
 

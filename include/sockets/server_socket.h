@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/19.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_SERVER_SOCKET_H
 #define WEBSERVER_SERVER_SOCKET_H
 

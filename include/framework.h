@@ -2,8 +2,6 @@
 // Created by AmazingPP on 2021/1/18.
 //
 
-#pragma once
-
 #ifndef WEBSERVER_FRAMEWORK_H
 #define WEBSERVER_FRAMEWORK_H
 
