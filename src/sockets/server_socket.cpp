@@ -9,11 +9,11 @@ namespace sockets {
         setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
     }
 
-    void SetNonblocking(int fd) {
-        fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
+    int SetNonblocking(int fd) {
+        return fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
     }
 
-    ServerSocket::ServerSocket(short port, const char *ip) : port_(port), ip_(ip) {
+    ServerSocket::ServerSocket(uint16_t port, const char *ip) : port_(port), ip_(ip) {
         addr_.sin_family = AF_INET;
         addr_.sin_port = htons(port);
         if (ip) {
@@ -27,7 +27,9 @@ namespace sockets {
             LOG_ERROR("Socket Error: create socket failed!");
             exit(EXIT_FAILURE);
         }
+        // 设置端口复用，抵消服务器主动关闭时产生的2MSL
         SetReusePort(listen_fd);
+        // epoll 是ET模式，循环接收连接，需要将listen_fd设置为non-blocking
         SetNonblocking(listen_fd);
     }
 

@@ -5,25 +5,41 @@
 #ifndef WEBSERVER_HTTP_SERVER_H
 #define WEBSERVER_HTTP_SERVER_H
 
+#include "http_data.h"
+#include "default_pages.h"
+#include "../epoll.h"
+#include "../thread_pool.h"
 #include "../sockets/server_socket.h"
 
 using namespace sockets;
 
-class HttpServer {
-public:
-    enum FIleStates {
-        kFileOk,
-        kFileNotFound,
-        kFileForbidden
+namespace http {
+    class HttpServer {
+    public:
+        enum FileState {
+            kFileOk,
+            kFileNotFound,
+            kFileForbidden
+        };
+
+        explicit HttpServer(uint16_t port, const char* ip = nullptr);
+
+        [[noreturn]]
+        void Run(int thread_num, int max_queue_size = kMaxQueueSize);
+
+        void DoRequest(std::shared_ptr<HttpData> http_data);
+
+    private:
+        void Header(std::shared_ptr<HttpData> http_data);
+
+        FileState StaticFile(std::shared_ptr<HttpData> http_data, const char *base_path);
+
+        void Send(std::shared_ptr<HttpData> http_data, FileState file_state);
+
+        void GetMime(std::shared_ptr<HttpData> http_data);
+
+        ServerSocket server_socket_;
     };
-
-    HttpServer(short port, const char* ip = nullptr);
-
-    void Run(int thread_num, int max_queue_size = 10000);
-
-private:
-    ServerSocket server_socket_;
-};
-
+}
 
 #endif //WEBSERVER_HTTP_SERVER_H

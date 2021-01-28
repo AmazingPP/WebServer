@@ -55,7 +55,7 @@ namespace timers {
 
         using SharedTimer = std::shared_ptr<Timer>;
 
-        void AddTimer(std::shared_ptr<HttpData> http_data, size_t timeout);
+        void AddTimer(std::shared_ptr<HttpData> http_data, size_t timeout = kDefaultTimeout);
 
         void HandleExpiredEvent();
 

@@ -19,7 +19,28 @@ public:
     ~ThreadPool();
 
     template<typename F, typename... Arg>
-    bool Enqueue(F &&f, Arg &&... args);
+    bool Enqueue(F &&f, Arg &&... args) {
+        auto task = std::make_shared<std::function<void()>>(
+                std::bind(std::forward<F>(f), std::forward<Arg>(args)...)
+        );
+        {
+            LockGuard lock(mutex_);
+            if (is_shutdown_) {
+                logger::Info("ThreadPool has shutdown");
+                return false;
+            }
+
+            if (tasks.size() > max_queue_size_) {
+                logger::Info("ThreadPool has too many tasks");
+                return false;
+            }
+
+            tasks.emplace([task]() { std::invoke(*task); });
+        }
+
+        condition_.NotifyOne();
+        return true;
+    }
 
     void Shutdown();
 

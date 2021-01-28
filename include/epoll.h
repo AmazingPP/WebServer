@@ -14,7 +14,7 @@ using namespace sockets;
 
 class Epoll {
 public:
-    using HttpDataPtrs = std::vector<std::shared_ptr<HttpData>>;
+    using HttpDataPtrVec = std::vector<std::shared_ptr<HttpData>>;
 
     constexpr static int kMaxEvents =  10000;
     // 可读 | ET模式 | 保证一个socket连接在任一时刻只被一个线程处理
@@ -28,12 +28,12 @@ public:
 
     static int DelFd(int epoll_fd, int fd, uint32_t events);
 
-    static HttpDataPtrs Poll(const ServerSocket &server_socket, int max_event, int timeout);
+    static HttpDataPtrVec Poll(const ServerSocket &server_socket, int max_event, int timeout);
 
     static void HandleConnection(const ServerSocket &server_socket);
 
     static std::unordered_map<int, std::shared_ptr<HttpData>> http_data_map;
-    static std::unique_ptr<epoll_event[]> epoll_event_array;
+    static std::unique_ptr<epoll_event[]> epoll_events;
     static TimerManager timer_manager;
 };
 

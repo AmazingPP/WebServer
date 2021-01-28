@@ -10,11 +10,11 @@
 
 namespace sockets {
     void SetReusePort(int fd);
-    void SetNonblocking(int fd);
+    int SetNonblocking(int fd);
 
     class ServerSocket {
     public:
-        ServerSocket(short port, const char *ip = nullptr);
+        ServerSocket(uint16_t port, const char *ip = nullptr);
 
         ~ServerSocket();
 
@@ -28,7 +28,7 @@ namespace sockets {
 
         int listen_fd, epoll_fd;
     private:
-        short port_;
+        uint16_t port_;
         sockaddr_in addr_{};
         const char *ip_;
     };
