@@ -25,9 +25,11 @@
 #include <sys/time.h>
 #include <sys/prctl.h>
 #include <sys/epoll.h>
+#include <sys/stat.h>
 #include <arpa/inet.h>
 #include <fcntl.h>
 
+#include "../vendor/fmt-7.1.3/include/fmt/core.h"
 #include "utils.h"
 #include "logger.h"
 #include "threading/mutex.h"

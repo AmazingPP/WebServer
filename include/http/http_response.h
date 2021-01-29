@@ -11,7 +11,7 @@
 
 namespace http {
     class HttpResponse {
-
+    public:
         enum HttpStatusCode {
             kUnknown,
             kOk = 200,
@@ -19,7 +19,6 @@ namespace http {
             kNotFound = 404
         };
 
-    public:
         explicit HttpResponse(bool keep_alive = true);
 
         ~HttpResponse();

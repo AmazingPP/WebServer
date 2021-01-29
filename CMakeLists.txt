@@ -20,3 +20,6 @@ set(SOURCE_FILES
 
 add_executable(WebServer ${SOURCE_FILES})
 target_link_libraries(WebServer pthread)
+
+add_subdirectory(vendor/fmt-7.1.3)
+target_link_libraries(WebServer fmt::fmt)

@@ -45,8 +45,34 @@ namespace http {
     }
 
     HttpServer::FileState HttpServer::StaticFile(std::shared_ptr<HttpData> http_data, const char *base_path) {
-        // TODO need to implement
-        return HttpServer::kFileForbidden;
+        struct stat file_stat;
+        const std::string& file_path = http_data->response->file_path();
+        std::string file = (base_path + file_path);
+        //char file[strlen(base_path) + file_path.length() + 1];
+        //std::strcpy(file, base_path);
+        //std::strcat(file, file_path.c_str());
+
+        // 文件不存在
+        if (stat(file.c_str(), &file_stat) == -1) {
+            http_data->response->set_mime("text/html");
+            http_data->response->set_status_code(HttpResponse::kNotFound);
+            http_data->response->set_status_msg("Not Found");
+
+            return kFileNotFound;
+        } // 不是普通文件
+        else if (!S_ISREG(file_stat.st_mode)) {
+            http_data->response->set_mime("text/html");
+            http_data->response->set_status_code(HttpResponse::kForbidden);
+            http_data->response->set_status_msg("ForBidden");
+
+            return kFileForbidden;
+        } else {
+            http_data->response->set_status_code(HttpResponse::kOk);
+            http_data->response->set_status_msg("OK");
+            http_data->response->set_file_path(file);
+
+            return kFileOk;
+        }
     }
 
     void HttpServer::Send(std::shared_ptr<HttpData> http_data, HttpServer::FileState file_state) {
