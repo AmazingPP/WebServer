@@ -17,23 +17,37 @@ namespace http {
             delete[] body_;
     }
 
-    void HttpResponse::AppendBuffer(char* const buffer) const {
-        if (version_ == HttpRequest::HttpVersions::kHttp10) {
-            sprintf(buffer, "HTTP/1.1 %d %s\r\n", status_code_, status_msg_.c_str());
-        } else {
-            sprintf(buffer, "HTTP/1.0 %d %s\r\n", status_code_, status_msg_.c_str());
-        }
+    void HttpResponse::AppendBuffer(fmt::memory_buffer &buffer) const {
+        // 构造状态行
+        fmt::format_to(buffer,
+                       "HTTP/1.{} {} {}\r\n",
+                       version_ == HttpRequest::kHttp10 ? 0 : 1,
+                       status_code_,
+                       status_msg_);
 
+        // 构造消息报头
         for (auto [key, value] : headers_) {
-            sprintf(buffer, "%s%s: %s\r\n", buffer, key.c_str(), value.c_str());
+            fmt::format_to(buffer, "{}: {}\r\n", key, value);
         }
-        sprintf(buffer, "%sContent-type: %s\r\n", buffer, mime_.type.c_str());
+        fmt::format_to(buffer, "Content-type: {}\r\n", mime_.type);
+        fmt::format_to(buffer, "Connection: {}\r\n", keep_alive_ ? "keep-alive" : "close");
 
-        if (keep_alive_) {
-            sprintf(buffer, "%sConnection: keep-alive\r\n", buffer);
-        } else {
-            sprintf(buffer, "%sConnection: close\r\n", buffer);
-        }
+//        if (version_ == HttpRequest::HttpVersions::kHttp10) {
+//            sprintf(buffer, "HTTP/1.1 %d %s\r\n", status_code_, status_msg_.c_str());
+//        } else {
+//            sprintf(buffer, "HTTP/1.0 %d %s\r\n", status_code_, status_msg_.c_str());
+//        }
+//
+//        for (auto [key, value] : headers_) {
+//            sprintf(buffer, "%s%s: %s\r\n", buffer, key.c_str(), value.c_str());
+//        }
+//        sprintf(buffer, "%sContent-type: %s\r\n", buffer, mime_.type.c_str());
+//
+//        if (keep_alive_) {
+//            sprintf(buffer, "%sConnection: keep-alive\r\n", buffer);
+//        } else {
+//            sprintf(buffer, "%sConnection: close\r\n", buffer);
+//        }
     }
 
     void HttpResponse::AddHeader(const std::string &key, const std::string &value) {

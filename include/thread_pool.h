@@ -26,16 +26,16 @@ public:
         {
             LockGuard lock(mutex_);
             if (is_shutdown_) {
-                logger::Info("ThreadPool has shutdown");
+                Logger::Info("ThreadPool has shutdown");
                 return false;
             }
 
             if (tasks.size() > max_queue_size_) {
-                logger::Info("ThreadPool has too many tasks");
+                Logger::Info("ThreadPool has too many tasks");
                 return false;
             }
 
-            tasks.emplace([task]() { std::invoke(*task); });
+            tasks.emplace(*task);
         }
 
         condition_.NotifyOne();

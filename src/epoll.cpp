@@ -109,7 +109,7 @@ Epoll::HttpDataPtrVec Epoll::Poll(const ServerSocket &server_socket, int max_eve
                     http_data_map.erase(it);
                 }
             } else {
-                logger::Info("长连接第二次连接未找到");
+                Logger::Info("长连接第二次连接未找到");
                 close(fd);
                 continue;
             }

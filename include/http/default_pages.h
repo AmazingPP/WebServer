@@ -6,6 +6,8 @@
 #define WEBSERVER_DEFAULT_PAGES_H
 
 namespace http {
+    constexpr char kInternalError[] = "Internal Error";
+
     constexpr char kNotFoundPage[] = "<html>\n"
                                      "<head><title>404 Not Found</title></head>\n"
                                      "<body style=\"background-color: white\">\n"

@@ -23,7 +23,7 @@ namespace http {
 
         ~HttpResponse();
 
-        void AppendBuffer(char* buffer) const;
+        void AppendBuffer(fmt::memory_buffer &buffer) const;
 
         void AddHeader(const std::string &key, const std::string &value);
 

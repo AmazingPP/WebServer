@@ -22,7 +22,7 @@ namespace http {
             kFileForbidden
         };
 
-        explicit HttpServer(uint16_t port, const char* ip = nullptr);
+        HttpServer(uint16_t port, std::string base_path, const char* ip = nullptr);
 
         [[noreturn]]
         void Run(int thread_num, int max_queue_size = kMaxQueueSize);
@@ -32,13 +32,14 @@ namespace http {
     private:
         void Header(std::shared_ptr<HttpData> http_data);
 
-        FileState StaticFile(std::shared_ptr<HttpData> http_data, const char *base_path);
+        FileState StaticFile(std::shared_ptr<HttpData> http_data);
 
         void Send(std::shared_ptr<HttpData> http_data, FileState file_state);
 
         void GetMime(std::shared_ptr<HttpData> http_data);
 
         ServerSocket server_socket_;
+        std::string base_path_;
     };
 }
 

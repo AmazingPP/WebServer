@@ -59,7 +59,7 @@ namespace sockets {
             if (errno == EWOULDBLOCK || errno == EAGAIN)
                 return client_fd;
             else {
-                LOG_ERROR("Socket Error: Accept failed! client_fd: %d", client_fd);
+                LOG_ERROR("Socket Error: Accept failed! client_fd: {}", client_fd);
             }
         }
         client.fd = client_fd;

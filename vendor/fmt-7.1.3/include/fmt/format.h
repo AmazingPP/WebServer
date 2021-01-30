@@ -2141,7 +2141,6 @@ class arg_formatter_base {
     using uint_type = uint32_or_64_or_128_t<T>;
     int_writer<iterator, Char, uint_type> w(out_, locale_, value, spec);
     handle_int_type_spec(spec.type, w);
-    out_ = w.out;
   }
 
   void write(char value) {
