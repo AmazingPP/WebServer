@@ -98,12 +98,9 @@ namespace http {
     }
 
     HttpServer::FileState HttpServer::StaticFile(std::shared_ptr<HttpData> http_data) {
-        struct stat file_stat;
+        struct stat file_stat{};
         const std::string &file_path = http_data->response->file_path();
         std::string file = base_path_ + file_path;
-        //char file[strlen(base_path) + file_path.length() + 1];
-        //std::strcpy(file, base_path);
-        //std::strcat(file, file_path.c_str());
 
         // 文件不存在
         if (stat(file.c_str(), &file_stat) == -1) {

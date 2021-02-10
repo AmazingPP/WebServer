@@ -26,7 +26,7 @@ public:
 
     static int ModFd(int epoll_fd, int fd, uint32_t events, std::shared_ptr<HttpData> http_data);
 
-    static int DelFd(int epoll_fd, int fd, uint32_t events);
+    static int DelFd(int epoll_fd, int fd);
 
     static HttpDataPtrVec Poll(const ServerSocket &server_socket, int max_event, int timeout);
 

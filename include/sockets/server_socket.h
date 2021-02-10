@@ -14,7 +14,7 @@ namespace sockets {
 
     class ServerSocket {
     public:
-        ServerSocket(uint16_t port, const char *ip = nullptr);
+        explicit ServerSocket(uint16_t port, const char *ip = nullptr);
 
         ~ServerSocket();
 

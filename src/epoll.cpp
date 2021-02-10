@@ -56,12 +56,8 @@ int Epoll::ModFd(int epoll_fd, int fd, uint32_t events, std::shared_ptr<HttpData
     return 0;
 }
 
-int Epoll::DelFd(int epoll_fd, int fd, uint32_t events) {
-    epoll_event event{};
-    event.events = events;
-    event.data.fd = fd;
-
-    int ret = epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, &event);
+int Epoll::DelFd(int epoll_fd, int fd) {
+    int ret = epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, nullptr);
     if (ret == -1) {
         LOG_ERROR("Epoll Error: del epoll failed!");
         return -1;

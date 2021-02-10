@@ -3,8 +3,9 @@
 //
 
 #include "../../include/sockets/client_socket.h"
+
 namespace sockets {
-    ClientSocket::ClientSocket() : fd(-1), addr_len(sizeof(addr)) {}
+    ClientSocket::ClientSocket(const int &epoll_fd) : epoll_fd(epoll_fd), fd(-1), addr_len(sizeof(addr)) {}
 
     ClientSocket::~ClientSocket() {
         Close();
@@ -12,6 +13,7 @@ namespace sockets {
 
     void ClientSocket::Close() {
         if (fd > -1) {
+            Epoll::DelFd(epoll_fd, fd);
             close(fd);
             fd = -1;
         }

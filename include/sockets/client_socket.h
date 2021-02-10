@@ -6,17 +6,19 @@
 #define WEBSERVER_CLIENT_SOCKET_H
 
 #include "../framework.h"
+#include "../epoll.h"
 
 namespace sockets {
     class ClientSocket {
     public:
-        ClientSocket();
+        explicit ClientSocket(const int &epoll_fd);
 
         ~ClientSocket();
 
         void Close();
 
         int fd;
+        const int &epoll_fd;
         sockaddr_in addr;
         socklen_t addr_len;
     };
