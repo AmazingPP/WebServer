@@ -1,3 +1,5 @@
 pages/* linguist-vendored
+vendor/* linguist-vendored
+
 *.h linguist-language=c++
 *.cpp linguist-language=c++
