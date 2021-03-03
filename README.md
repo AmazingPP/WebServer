@@ -8,7 +8,7 @@
 + 编辑器: Vim
 + 压测工具：[WebBench](https://github.com/EZLippi/WebBench)
 
-## 核心功能及技术
+# 核心功能及技术
 
 + 状态机解析HTTP请求，目前支持HTTP GET、HEAD方法
 
